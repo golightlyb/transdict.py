@@ -9,7 +9,7 @@ Example
 -------
 
 Scenario: imagine you are creating a web application with Python. The HTTP
-# request headers are given to you in the following format:
+request headers are given to you in the following format:
 
 ```python
 example_headers = {
