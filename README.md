@@ -120,6 +120,11 @@ for i in example_headers.items():
 # wsgi.not_important: A value you don't care about
 ```
 
+Installation
+------------
+
+`sudo pip3 install transdict --upgrade`
+
 
 
 COPYING
