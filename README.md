@@ -66,7 +66,8 @@ class Headers(fdict.FDict):
         return x[5:].casefold().replace('_', '-')
 
     def fromValue(self, x):
-        # how tge view transforms a value from the original dict
+        # how the view transforms a value from the original dict
+        # - raise ValueError if invalid
         return x
 ```
 
@@ -90,7 +91,8 @@ class MutableHeaders(fdict.MutableFDict):
         return x[5:].casefold().replace('_', '-')
 
     # toValue, fromValue are just the identity functions here
-    # so we don't need to implement them
+    # so we don't need to implement them. If we did, they could raise
+    # ValueError exceptions for invalid values.
 
 
 headers_view = Headers(example_headers)
