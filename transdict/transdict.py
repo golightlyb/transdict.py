@@ -14,7 +14,7 @@ import collections.abc
 identityfn = lambda x: x
 
 
-class FDict(collections.abc.Mapping):
+class Transdict(collections.abc.Mapping):
     def __init__(self, source = {}):
         self._data = source
 
@@ -70,7 +70,7 @@ class FDict(collections.abc.Mapping):
 
 
 
-class MutableFDict(FDict):
+class MutableTransdict(Transdict):
     def toValue(self, x):
         # Raise ValueError if invalid
         return x

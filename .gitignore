@@ -1,1 +1,10 @@
 __*
+
+.*
+*~
+!.gitignore
+*.egg*
+
+/build
+/dist
+

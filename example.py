@@ -42,13 +42,13 @@ wanted_headers = {
 #   all the time
 
 
-# You can do this with fdict, which is a view over a dict that transparently
+# You can do this with transdict, which is a view over a dict that transparently
 # applies your custom functions in order to create a bidirectional mapping
 # between the source dict and the desired view.
 
-import fdict
+import transdict
 
-class Headers(fdict.FDict):
+class Headers(transdict.Transdict):
     def toKey(self, x):
         # how to map a key back to the orignal dict
         # e.g. 'user-agent' => 'HTTP_USER_AGENT'
@@ -74,10 +74,10 @@ class Headers(fdict.FDict):
 
 # If you wanted the view to be mutable, e.g. so you could append items in
 # the desired format and they would be reflected in the original dict,
-# you would instead subclass from `fdict.MutableFDict` and also implement
+# you would instead subclass from `transdict.MutableTransdict` and also implement
 # `toValue(self, x)`
 
-class MutableHeaders(fdict.MutableFDict):
+class MutableHeaders(transdict.MutableTransdict):
     def toKey(self, x):
         return 'HTTP_' + x.upper().replace('-', '_')
 
@@ -128,7 +128,7 @@ print("")
 print("Example - case insensitive dict keys:")
 print("==================================================")
 
-class MappingViewWithCaseInsensitiveKeyLookup(fdict.FDict):
+class MappingViewWithCaseInsensitiveKeyLookup(transdict.Transdict):
     def toKey(self, x):
         return x.casefold()
 

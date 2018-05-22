@@ -1,4 +1,4 @@
-FDict (python)
+Transdict (python)
 ==============
 
 A [dictionary/mapping view](https://docs.python.org/3/library/stdtypes.html#dictionary-view-objects)
@@ -41,12 +41,12 @@ one are reflected in the original
 all the time
 
 
-Let's create a new dictionary/mapping type based on FDict:
+Let's create a new dictionary/mapping type based on Transdict:
 
 ```python
-import fdict
+import transdict
 
-class Headers(fdict.FDict):
+class Headers(transdict.Transdict):
 
     def toKey(self, x):
         # how to map a key back to the orignal dict
@@ -76,12 +76,12 @@ we could have ommitted the `fromValue` method.
 
 If you wanted the view to be mutable, e.g. so you could append items in
 the desired format and they would be reflected in the original dict,
-you would instead subclass from `fdict.MutableFDict` and also implement
+you would instead subclass from `transdict.MutableTransdict` and also implement
 `toValue(self, x)`:
 
 
 ```python
-class MutableHeaders(fdict.MutableFDict):
+class MutableHeaders(transdict.MutableTransdict):
     def toKey(self, x):
         return 'HTTP_' + x.upper().replace('-', '_')
 
