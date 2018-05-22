@@ -8,43 +8,46 @@ bidirectional mapping between the source dict and a desired view.
 Example
 -------
 
-```python
-# Scenario: imagine you are creating a web application with Python. The HTTP
+Scenario: imagine you are creating a web application with Python. The HTTP
 # request headers are given to you in the following format:
 
+```python
 example_headers = {
     'HTTP_USER_AGENT':      'Example User Agent',
     'HTTP_FOO_BAR':         'Example value',
     'wsgi.not_important':   'A value you don\'t care about'
 }
+```
 
-# However, you'd prefer they were given to you in the following format instead:
 
+However, you'd prefer they were given to you in the following format instead:
+
+```python
 wanted_headers = {
     'user-agent': 'Example User Agent',
     'foo-bar':    'Example Value',
 }
+```
+
+You could simply make a new dict, but suppose one of these applies:
+
+* the dictionary is potentially large, and you don't want to look at every
+key, so you don't want to convert things before you have to
+
+* you want a view, not a transformed copy of the dict, so that updates to
+one are reflected in the original
+
+* you don't want to do `valuefunction(example_headers.get(keyfunction(key)))`
+all the time
 
 
-# and one of these applies:
+Let's create a new dictionary/mapping type based on FDict:
 
-# - the dictionary is potentially large, and you don't want to look at every
-#   key, so you don't want to convert things before you have to
-
-# - you want a view, not a transformed copy of the dict, so that updates to
-#   one are reflected in the original
-
-# - you don't want to do `valuefunction(example_headers.get(keyfunction(key)))`
-#   all the time
-
-
-# You can do this with fdict, which is a view over a dict that transparently
-# applies your custom functions in order to create a bidirectional mapping
-# between the source dict and the desired view.
-
+```python
 import fdict
 
 class Headers(fdict.FDict):
+
     def toKey(self, x):
         # how to map a key back to the orignal dict
         # e.g. 'user-agent' => 'HTTP_USER_AGENT'
@@ -65,14 +68,18 @@ class Headers(fdict.FDict):
     def fromValue(self, x):
         # how tge view transforms a value from the original dict
         return x
+```
 
-# All the methods are optional, and default to the identity function.
+All the methods are optional, and default to the identity function, so
+we could have ommitted the `fromValue` method.
 
-# If you wanted the view to be mutable, e.g. so you could append items in
-# the desired format and they would be reflected in the original dict,
-# you would instead subclass from `fdict.MutableFDict` and also implement
-# `toValue(self, x)`
+If you wanted the view to be mutable, e.g. so you could append items in
+the desired format and they would be reflected in the original dict,
+you would instead subclass from `fdict.MutableFDict` and also implement
+`toValue(self, x)`:
 
+
+```python
 class MutableHeaders(fdict.MutableFDict):
     def toKey(self, x):
         return 'HTTP_' + x.upper().replace('-', '_')
@@ -109,9 +116,6 @@ for i in example_headers.items():
 # HTTP_REFERER: https://example.org/
 # HTTP_FOO_BAR: Example value
 # wsgi.not_important: A value you don't care about
-
-# (Note: this was a simplified example. In the real world, the WSGI dict also
-# has a different encoding!)
 ```
 
 
