@@ -2,8 +2,7 @@ Transdict (python)
 ==============
 
 A [dictionary/mapping view](https://docs.python.org/3/library/stdtypes.html#dictionary-view-objects)
-that transparently applies your custom functions in order to create a
-bidirectional mapping between the source dict and a desired view.
+that provides a lazy transformation between the source and a desired view.
 
 Example
 -------
