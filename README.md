@@ -93,7 +93,13 @@ class MutableHeaders(transdict.MutableTransdict):
     # so we don't need to implement them. If we did, they could raise
     # ValueError exceptions for invalid values.
 
+```
 
+
+Now you just construct your objects using a normal Python dictionary (or
+any other mapping):
+
+```python
 headers_view = Headers(example_headers)
 mutable_headers_view = MutableHeaders(example_headers)
 
