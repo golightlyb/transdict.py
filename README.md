@@ -101,7 +101,6 @@ any other mapping):
 
 ```python
 headers_view = Headers(example_headers)
-mutable_headers_view = MutableHeaders(example_headers)
 
 for i in headers_view.items():
     print("%s: %s" % i)
@@ -111,8 +110,12 @@ for i in headers_view.items():
 # user-agent: Example User Agent
 
 print('user-agent' in headers_view) # => True
+```
 
+And in the other direction:
 
+```python
+mutable_headers_view = MutableHeaders(example_headers)
 mutable_headers_view['referer'] = 'https://example.org/'
 
 for i in example_headers.items():
