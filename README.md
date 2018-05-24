@@ -2,7 +2,7 @@ Transdict (python)
 ==============
 
 A [dictionary/mapping view](https://docs.python.org/3/library/stdtypes.html#dictionary-view-objects)
-that provides a lazy transformation between the source and a desired view.
+that provides a lazy bidirectional transformation between the source and a desired view.
 
 Example
 -------
@@ -33,7 +33,7 @@ You could simply make a new dict, but suppose one of these applies:
 * the dictionary is potentially large, and you don't want to look at every
 key, so you don't want to convert things before you have to
 
-* you want a view, not a transformed copy of the dict, so that updates to
+* you want a view, not a seperate copy of the dict, so that updates to
 one are reflected in the original
 
 * you don't want to do `valuefunction(example_headers.get(keyfunction(key)))`
